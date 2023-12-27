@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(GestionTareasDbContext))]
-    [Migration("20231224221149_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20231226211129_firstMigration")]
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,57 @@ namespace DataLayer.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("EntityLayer.AuthModels.TUser", b =>
+                {
+                    b.Property<Guid>("idUser")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasMaxLength(155)
+                        .HasColumnType("nvarchar(155)");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<string>("identification")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("lastName")
+                        .IsRequired()
+                        .HasMaxLength(155)
+                        .HasColumnType("nvarchar(155)");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(155)
+                        .HasColumnType("nvarchar(155)");
+
+                    b.Property<string>("password")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasMaxLength(75)
+                        .HasColumnType("nvarchar(75)");
+
+                    b.Property<string>("telephone")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.HasKey("idUser");
+
+                    b.ToTable("User", "Auth");
+                });
 
             modelBuilder.Entity("EntityLayer.StateModels.StateTask", b =>
                 {
@@ -66,8 +117,9 @@ namespace DataLayer.Migrations
                     b.Property<Guid>("idUser")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("priority")
-                        .HasColumnType("int");
+                    b.Property<string>("priority")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("state")
                         .IsRequired()
@@ -81,75 +133,6 @@ namespace DataLayer.Migrations
                     b.HasKey("idTask");
 
                     b.ToTable("TaskManager", "basic_data");
-                });
-
-            modelBuilder.Entity("EntityLayer.UserModels.Person", b =>
-                {
-                    b.Property<Guid>("idPerson")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("cellPhone")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasMaxLength(55)
-                        .HasColumnType("nvarchar(55)");
-
-                    b.Property<string>("firstName")
-                        .IsRequired()
-                        .HasMaxLength(55)
-                        .HasColumnType("nvarchar(55)");
-
-                    b.Property<string>("lastName")
-                        .IsRequired()
-                        .HasMaxLength(55)
-                        .HasColumnType("nvarchar(55)");
-
-                    b.HasKey("idPerson");
-
-                    b.ToTable("Person", "basic_data");
-
-                    b.UseTptMappingStrategy();
-                });
-
-            modelBuilder.Entity("EntityLayer.UserModels.User", b =>
-                {
-                    b.HasBaseType("EntityLayer.UserModels.Person");
-
-                    b.Property<Guid>("idUser")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("rol")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("User", "basic_data");
-                });
-
-            modelBuilder.Entity("EntityLayer.UserModels.User", b =>
-                {
-                    b.HasOne("EntityLayer.UserModels.Person", null)
-                        .WithOne()
-                        .HasForeignKey("EntityLayer.UserModels.User", "idPerson")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,6 @@
-﻿using EntityLayer.StateModels;
+﻿using EntityLayer.AuthModels;
+using EntityLayer.StateModels;
 using EntityLayer.TaskModels;
-using EntityLayer.UserModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 
 namespace DataLayer.Context
 {
@@ -26,10 +25,10 @@ namespace DataLayer.Context
 
             base.ConfigureConventions(configurationBuilder);
         }
+        
 
         public DbSet<TaskManager> Tasks { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<TUser> Users { get; set; }
         public DbSet<StateTask> StateTasks { get; set; }
 
 

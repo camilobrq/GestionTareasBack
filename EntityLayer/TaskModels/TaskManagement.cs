@@ -21,7 +21,7 @@ namespace EntityLayer.TaskModels
         public string description { get; set; }
         public Guid idStateTask { get; set; }
         public string state { get; set; }
-        public int priority { get; set; } //tendra 3 niveles de prioridad donde 1 es la mas alta y 3 la mas baja
+        public string priority { get; set; } //tendra 3 niveles de prioridad donde 1 es la mas alta y 3 la mas baja
 
         public Guid idUser { get; set; }
 

@@ -13,7 +13,7 @@ namespace BussinesLayer.TaskLogics.Abstracts
     {
         Task<Response> RegisterTask(TaskCreateDto task);
         Task<Response> UpdateTask(TaskCreateDto task);
-        Task<Response<List<TaskManager>>> GetTasks(Guid taskId);
+        Task<Response<List<TaskManager>>> GetTasksForUser(Guid userId);
         Task<Response> DeleteTask(Guid taskId);
         Task<Response<List<TaskManager>>> GetAllTask();
     }

@@ -12,7 +12,7 @@ namespace DataLayer.Repositories.Abstracts
         Task AddTaskManagement(TaskManager taskModel);
         Task UpdateTaskManagement(TaskManager updatedTask);
         Task DeleteTask(Guid taskId);
-        Task<List<TaskManager>> GetTask(Guid taskId);
+        Task<List<TaskManager>> GetTasksForUser(Guid userId);
         Task<List<TaskManager>> GetAllTask();
     }
 }

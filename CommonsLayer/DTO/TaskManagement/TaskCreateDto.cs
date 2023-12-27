@@ -15,7 +15,7 @@ namespace CommonsLayer.DTO.TaskManagement
         public string description { get; set; }
         public Guid idState { get; set; }
         public string state { get; set; }
-        public int priority { get; set; } 
+        public string priority { get; set; } 
         public Guid idUser { get; set; }
     }
 }

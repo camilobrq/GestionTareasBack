@@ -1,6 +1,10 @@
+using Api.Infrastructure.Helpers;
 using AutoMapper;
+using BussinesLayer.AuthLogic.Abstracts;
+using BussinesLayer.AuthLogic.Implements;
 using BussinesLayer.TaskLogics.Abstracts;
 using BussinesLayer.TaskLogics.Implements;
+using CommonsLayer.Configuration;
 using DataLayer.Context;
 using DataLayer.Repositories.Abstracts;
 using DataLayer.Repositories.Implements;
@@ -23,17 +27,25 @@ builder.Services.AddSwaggerGen(options =>
         Description = "API for Gestion de tareas",
     });
 
-    // using System.Reflection;
-    //var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    //options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
-//builder.Services.AddCorsService();
+builder.Services.AddCorsService();
+
 #region [Repositories]
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<ISingInRepository, SingInRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 #endregion
 
 #region [Services]
 builder.Services.AddScoped<ITaskManagement, TaskManagement>();
+builder.Services.AddScoped<ISingInManagement, SingInManagement>();
+builder.Services.AddScoped<IEmployeeManagement, EmployeeManagement>();
+#endregion
+
+#region Jwt
+builder.Services.Configure<JwtTokenProviderOptions>(builder.Configuration.GetSection("SecretKey"));
+builder.Services.AddJsonTokenProvider(builder.Configuration);
+builder.Services.AddAuthenticationService(builder.Configuration);
 #endregion
 
 #region [Connection DataBase]
@@ -42,6 +54,7 @@ builder.Services.AddDbContext<GestionTareasDbContext>(opt =>
 {
     opt.UseSqlServer(connectionString);
 });
+
 #endregion
 
 var app = builder.Build();

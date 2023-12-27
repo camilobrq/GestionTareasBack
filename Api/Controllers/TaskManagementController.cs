@@ -25,9 +25,9 @@ namespace Api.Controllers
 
 
         /// <summary>
-        /// Registra una nuevo producto.
+        /// Registra una nueva tarea.
         /// </summary>
-        /// <param name="productmodel">Datos del producto que se va a registrar.</param>
+        /// <param name="productmodel">Datos de la tarea que se va a registrar.</param>
         /// <returns>Respuesta que indica el resultado de la operación.</returns>
         /// <remarks>
         /// </remarks>
@@ -44,9 +44,9 @@ namespace Api.Controllers
                 : BadRequest(result);
         }
         ///// <summary>
-        ///// Edita un producto.
+        ///// Edita una tarea.
         ///// </summary>
-        ///// <param name="productmodel">Datos del producto que se va a Editar.</param>
+        ///// <param name="taskModel">Datos de la tarea que se va a Editar.</param>
         ///// <returns>Respuesta que indica el resultado de la operación.</returns>
         ///// <remarks>
         ///// </remarks>
@@ -62,29 +62,11 @@ namespace Api.Controllers
                 ? Ok(result)
                 : BadRequest(result);
         }
+       
         ///// <summary>
-        ///// Obtiene un producto.
+        ///// Elimina una tarea.
         ///// </summary>
-        ///// <param name="productId">Id del producto a obtener.</param>
-        ///// <returns>Respuesta que indica el resultado de la operación.</returns>
-        ///// <remarks>
-        ///// </remarks>
-        [HttpGet("GetTasks")]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetTasks(Guid taskId)
-        {
-            var result = await management.GetTasks(taskId);
-
-            return result.Status is ResponseStatus.Successful or ResponseStatus.Warning
-                ? Ok(result)
-                : BadRequest(result);
-        }
-        ///// <summary>
-        ///// Elimina un producto.
-        ///// </summary>
-        ///// <param name="productId">Id del producto a Eliminar.</param>
+        ///// <param name="taskId">Id de la tarea a Eliminar.</param>
         ///// <returns>Respuesta que indica el resultado de la operación.</returns>
         ///// <remarks>
         ///// </remarks>
@@ -101,9 +83,9 @@ namespace Api.Controllers
                 : BadRequest(result);
         }
         ///// <summary>
-        ///// Obtiene un producto.
+        ///// Obtiene todas las tareas .
         ///// </summary>
-        ///// <returns>Obtiene todas las recetas del sistema.</returns>
+        ///// <returns>Obtiene todas las tareas del sistema.</returns>
         ///// <remarks>
         ///// </remarks>
         [HttpGet("GetAllTask")]
@@ -113,6 +95,24 @@ namespace Api.Controllers
         public async Task<IActionResult> GetAllTask()
         {
             var result = await management.GetAllTask();
+
+            return result.Status is ResponseStatus.Successful or ResponseStatus.Warning
+                ? Ok(result)
+                : BadRequest(result);
+        }
+        ///// <summary>
+        ///// Obtiene un las tareas por usuario.
+        ///// </summary>
+        ///// <returns>Obtiene un las tareas por usuario..</returns>
+        ///// <remarks>
+        ///// </remarks>
+        [HttpGet("GetTasksForUser")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Response), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetTasksForUser(Guid userId)
+        {
+            var result = await management.GetTasksForUser(userId);
 
             return result.Status is ResponseStatus.Successful or ResponseStatus.Warning
                 ? Ok(result)

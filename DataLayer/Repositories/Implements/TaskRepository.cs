@@ -56,11 +56,11 @@ namespace DataLayer.Repositories.Implements
 
         }
 
-        public async Task<List<TaskManager>> GetTask(Guid taskId)
+        public async Task<List<TaskManager>> GetTasksForUser(Guid userId)
         {
             var recipe = await context.Tasks
-        .Where(r => r.idTask == taskId)
-        .ToListAsync();
+            .Where(r => r.idUser == userId)
+            .ToListAsync();
 
             return recipe;
         }

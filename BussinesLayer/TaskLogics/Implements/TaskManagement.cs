@@ -15,8 +15,6 @@ namespace BussinesLayer.TaskLogics.Implements
     public class TaskManagement: ITaskManagement
     {
         private readonly ITaskRepository repository;
-        private readonly IMapper mapper;
-        private readonly IMapper _mapper;
 
         
         public TaskManagement(ITaskRepository repository)
@@ -53,6 +51,7 @@ namespace BussinesLayer.TaskLogics.Implements
                 taskModel.idTask = task.idTask;
                 taskModel.taskTitle = task.taskTitle;
                 taskModel.description = task.description;
+                taskModel.idStateTask = task.idState;
                 taskModel.state = task.state;
                 taskModel.priority = task.priority;
                 taskModel.idUser = task.idUser;
@@ -66,12 +65,12 @@ namespace BussinesLayer.TaskLogics.Implements
             }
         }
 
-        public async Task<Response<List<TaskManager>>> GetTasks(Guid taskId)
+        public async Task<Response<List<TaskManager>>> GetTasksForUser(Guid userId)
         {
             try
             {
 
-                var result = await repository.GetTask(taskId);
+                var result = await repository.GetTasksForUser(userId);
 
                 return Response<List<TaskManager>>.Successful("Successful", result);
 
